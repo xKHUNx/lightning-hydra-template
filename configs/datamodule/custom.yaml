@@ -1,0 +1,46 @@
+_target_: src.datamodules.custom_datamodule.CustomDataModule
+data_dir_main: /path/to/data
+data_dirs_train:
+ - dataset1
+ - dataset2
+data_dirs_val:
+ - dataset1
+ - dataset2
+data_dirs_test:
+ - dataset1
+ - dataset2
+ - external
+batch_size: 32
+num_workers: 0
+pin_memory: False
+
+transforms_train:
+  - _target_: torchvision.transforms.Grayscale
+    num_output_channels: 1
+  - _target_: albumentations.augmentations.geometric.resize.Resize
+    height: 28
+    width: 28
+  - _target_: albumentations.augmentations.crops.transforms.RandomCrop
+    height: 28
+    width: 28
+  - _target_: albumentations.transforms.ColorJitter
+    brightness: 0.2
+  - _target_: src.datamodules.custom_transforms.augmentation.MotionBlur
+    p: 0.15
+  - _target_: torchvision.transforms.ToTensor
+
+transforms_val:
+  - _target_: torchvision.transforms.Grayscale
+    num_output_channels: 1
+  - _target_: albumentations.augmentations.geometric.Resize
+    height: 28
+    width: 28
+  - _target_: torchvision.transforms.ToTensor
+
+transforms_test:
+  - _target_: torchvision.transforms.Grayscale
+    num_output_channels: 1
+  - _target_: albumentations.augmentations.geometric.Resize
+    height: 28
+    width: 28
+  - _target_: torchvision.transforms.ToTensor

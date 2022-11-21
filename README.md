@@ -1288,3 +1288,7 @@ You can override any parameter from command line like this
 ```bash
 python src/train.py trainer.max_epochs=20 datamodule.batch_size=64
 ```
+
+## 📌  What's new
+
+For this fork, I've added the `CustomDataModule` class, and configs files that utilize this class. The `CustomDataModule` allow users to self-defined the transform operations to be applied on the dataset. User just need to modify the YAML file at [configs/datamodule/custom.yaml](configs/datamodule/custom.yaml) to achieve this.
